@@ -1,20 +1,16 @@
 const http = require('http') ;
 
-http.get(process.agrv[2] , res=>{
+http.get(process.argv[2] , res=>{
 	res.setEncoding('utf-8') ;
-	let character='' , data='' ;
-
-	res.on('connected', chunk=>{
-		data+= chunk ;
-		character+= chunk.length ;
+	let data='' ;
+	
+	res.on("data", chunk=>{
+		data+=chunk ;
 	}) ;
 
-	res.on('end', ()=>{
-		try {
-			console.log(character, data) ;
-		} catch(e) {
-			console.log(e) ;
-		}
-	}) ;
+	res.on("end", ()=>{
+		console.log(`${data.length}\n${data}`) ;
+
+	})
 
 }) ;
